@@ -7001,6 +7001,18 @@ function rsmApply(q){const G=DG;if(!G||G.v!==q.v||q.tm==null)return;G.t=Math.max
   if(ph>=3){E=E.filter(e=>!(e.dgs||e.dfs||e.dfb==2));G.sc=0;G.ph=3;dgGate(1);if(q.v)dfBoss();else dgBoss()}}
  MMC=null;acA('rsm')}
 
+/* ===== Update 95: Absturz-Erkennung (Diagnose für Fehlerberichte) ===== */
+var CRW=null;
+(function(){const K=SV+'_hb';let h0=null;try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&!o.ok&&Date.now()-o.ts<864e5)CRW=o}catch(e){}
+ function cnt(o){try{return Object.keys(o).length}catch(e){return 0}}
+ function snap(ok){try{const m=performance.memory,hp=m?Math.round(m.usedJSHeapSize/1048576):null;if(h0==null&&hp!=null)h0=hp;
+  const o={ts:Date.now(),ok:ok?1:0,v:GVER,fps:typeof BFPS!='undefined'?BFPS:0,mp:typeof mp!='undefined'?mp:-1,tw:typeof TW!='undefined'&&TW?1:0,dg:typeof DG!='undefined'&&DG?DG.v:-1,
+   E:typeof E!='undefined'?E.length:0,PT:PT.length,FX:typeof FX!='undefined'?FX.length:0,sp:cnt(SPC),cs:cnt(CSPV),hp,h0,lim:m?Math.round(m.jsHeapSizeLimit/1048576):null,up:Math.round(performance.now()/60000),rs:RS};
+  localStorage.setItem(K,JSON.stringify(o))}catch(e){}}
+ setInterval(()=>{if(!document.hidden)snap(0)},5000);addEventListener('pagehide',()=>snap(1));document.addEventListener('visibilitychange',()=>snap(document.hidden?1:0));
+ if(CRW)setTimeout(()=>{try{say('⚠️ Das Spiel wurde zuletzt unerwartet beendet. Bitte kurz über „🐞 Fehler melden“ Bescheid geben – die Diagnose wird automatisch angehängt.','#ffb86b')}catch(e){}},6000)})();
+function crwTxt(){const o=CRW;if(!o)return '';const ort=o.tw?'Turm':o.dg>=0?'Dungeon '+o.dg:'Karte '+o.mp;
+ return 'Letzter Absturz: '+new Date(o.ts).toLocaleString('de-DE')+' · '+(o.v||'?')+' · '+ort+' · ~'+o.fps+' FPS · lief '+o.up+' Min · Monster '+o.E+' · Partikel '+o.PT+'/'+o.FX+' · Sprites '+o.sp+'/'+o.cs+' · Auflösung '+o.rs+'x'+(o.hp!=null?' · Speicher '+o.h0+'→'+o.hp+' MB (Limit '+o.lim+')':'')}
 /* ===== Fehler melden ===== */
 const GVER='Update 95 · 29.10.2026';
 const WNV={v:'Update 95',pv:'Update 94',n:9,l:[['⚒','<b>Meisterschmied repariert:</b> In der Eisgruft hat der Frost-Balken deine Schmied-Versuche verbraucht – deshalb ließ sich der Meisterschmied nicht nutzen. Jetzt funktioniert er wieder.'],['🔁','<b>Wiedereinstieg mit Fortschritt:</b> Gehst du nach einem Neustart zurück in einen Dungeon, machst du auf deiner Etage weiter – mit der bereits verstrichenen Zeit und deinen Pakten. Kein Neustart des Laufs mehr.'],['🔥','<b>Schaden über Zeit kann kritisch treffen</b> – mit deiner normalen Krit-Chance und deinem Krit.-Schaden.'],['⚡','<b>Neuer Wert Angriffstempo:</b> Jeder kosmetische Begleiter gibt +0,01% pro Level – für alle, die du besitzt, auch wenn sie nicht angelegt sind. Dazu sind Steinhaut, Schattenschritt und Amethysthaut im Kristallbaum jetzt Angriffstempo-Knoten (je max. +2%). Deine Punkte bleiben erhalten.'],['💠','<b>Juwelen-Shop für alle:</b> Unter 💠 Shop kannst du deine Juwelen aus Aufträgen für Komfort-Siegel und Pakete ausgeben. Echtgeld-Angebote gibt es noch nicht.'],['🗝️','<b>Schlüsseltausch nur noch vorwärts:</b> Schattenschlüssel → Eisblume → Dornenzweig → Katzenglöckchen, je 1:1 und erst, wenn der Ziel-Dungeon freigeschaltet ist. Zurücktauschen geht nicht mehr.'],['🌈','<b>Ultra-Kristalle</b> erscheinen erst 15 Minuten nach der Zerstörung neu.'],['🐎','<b>Reittier-Werte klarer:</b> Im Reittier-Menü steht jetzt, wie viel zu Fuß wirklich wirkt (Reitersiegel 50–95%). Deshalb zeigte die Bonus-Übersicht z. B. 15% statt 30% Krit.-Schaden.'],['🏆','<b>4 neue Erfolge</b> (Brennende Wunden, Begleiterschar, Schlüsselhändler, Juwelenkenner) und erweiterte Statistik. Der Mini-Guide ist auf dem neuesten Stand.']]};
@@ -7015,7 +7027,7 @@ function bugTxt(){const d=($('bgd')&&$('bgd').value.trim())||'(keine Beschreibun
  L.push('Version: '+GVER);
  if(p&&run){L.push(`Charakter: ${CL[p.k].n} Lv ${p.lv}${p.pl?' · Prestige '+p.pl:''}`);const M=MAPS[mp];let o=M?M.n:'?';if(DG)o+=DG.v>=3?` · Etage ${(DG.fl|0)+1}/${AD[DG.v].F.length}`:DG.v==2?` · Etage ${(DG.fl|0)+1}/8`:'';else if(typeof TW!='undefined'&&TW)o+=' · Turm';L.push(`Ort: ${o} (x ${Math.round(p.x)}, y ${Math.round(p.y)})${p.dead?' · tot':''}`);L.push(`Auto-Kampf: ${auto?'an':'aus'} · Auto-Leveln: ${idl?'an':'aus'} · Reittier: ${p.mt&&p.mt.on?'an':'aus'}`)}else L.push('Charakter: noch keiner gestartet');
  L.push(`Grafik: ${['Niedrig','Mittel','Hoch'][OPT.gq]} · ~${BFPS} FPS · Musik ${OPT.mu?'an':'aus'} · Sound ${OPT.sf?'an':'aus'}`);
- L.push('Speicher: '+(CS&&CS.ok?'Cloud':'lokal'));L.push('Gerät: '+bugDev());try{const pf=pfTxt();if(pf)L.push(pf)}catch(e){}L.push('Zeit: '+new Date().toLocaleString('de-DE'));
+ L.push('Speicher: '+(CS&&CS.ok?'Cloud':'lokal'));L.push('Gerät: '+bugDev());try{const pf=pfTxt();if(pf)L.push(pf)}catch(e){}try{const cr=crwTxt();if(cr)L.push(cr)}catch(e){}L.push('Zeit: '+new Date().toLocaleString('de-DE'));
  if(BERR.length)L.push('Letzte Fehler: '+BERR.join(' | '));return L.join('\n')}
 function bugR(){const c=$('bugc');if(!c)return;c.innerHTML=`<div class='orw'><div class='ol'>🐞 <b>Fehler melden / Feedback</b><br><small>Beschreibe kurz, was passiert ist. Spielinfos und Gerät werden automatisch angehängt.</small></div>
  <div class='bgt'>${['Fehler','Idee','Balance'].map(n=>`<button data-bt='${n}' class='${BTY==n?'on':''}'>${n=='Fehler'?'🐞 ':n=='Idee'?'💡 ':'⚖️ '}${n}</button>`).join('')}</div>
