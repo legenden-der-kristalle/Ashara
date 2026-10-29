@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover"><!-- ===== Ashara Cloud (Firebase) – nur aktiv außerhalb von claude.ai, z. B. auf GitHub Pages ===== -->
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover"><!-- ===== Ashara Cloud (Firebase) – nur aktiv außerhalb von claude.ai, z. B. auf GitHub Pages ===== -->
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
@@ -71,12 +71,11 @@ html,body{max-width:100%;overflow-x:hidden}
  if(/github\.io$/.test(location.hostname)){var l=document.createElement('link');l.rel='manifest';l.href='manifest.webmanifest';document.head.appendChild(l);
   var t=document.createElement('meta');t.name='theme-color';t.content='#1a1108';document.head.appendChild(t);
   var a2=document.createElement('link');a2.rel='apple-touch-icon';a2.href='icon-192.png';document.head.appendChild(a2);
-  if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+  if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').then(function(r){try{r.update()}catch(e){}}).catch(function(){})})}
 })();
 </script>
-<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}@keyframes gbS{0%,100%{transform:rotate(0) scale(1)}20%{transform:rotate(-12deg) scale(1.05)}40%{transform:rotate(10deg) scale(1.1)}60%{transform:rotate(-8deg) scale(1.15)}80%{transform:rotate(6deg) scale(1.2)}}@keyframes gbP{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}.gbs{display:inline-block;animation:gbS .45s ease-in-out infinite}.gbp{animation:gbP .45s ease-out}</style></head><body>
-<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>[hidden]:not([hidden=until-found i]){display:none!important}@keyframes gbS{0%,100%{transform:rotate(0) scale(1)}20%{transform:rotate(-12deg) scale(1.05)}40%{transform:rotate(10deg) scale(1.1)}60%{transform:rotate(-8deg) scale(1.15)}80%{transform:rotate(6deg) scale(1.2)}}@keyframes gbP{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}.gbs{display:inline-block;animation:gbS .45s ease-in-out infinite}.gbp{animation:gbP .45s ease-out}</style>
+
 <title>Ashara – Legenden der Kristalle</title><meta name='apple-mobile-web-app-capable' content='yes'><meta name='mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-title' content='Ashara'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><meta name='theme-color' content='#120c05'>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -7033,5 +7032,3 @@ clsR();try{const lk=localStorage.getItem(SV+'_last'),sv=lk&&CL[lk]?ld(lk):null;i
 
 $('spm').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const n=+b.dataset.sp;if(n){spChoose(n);spClose();if($('mn').style.display=='block')menu()}});
 </script></body></html>
-
-</body></html>
