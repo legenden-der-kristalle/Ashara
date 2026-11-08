@@ -4181,7 +4181,7 @@ document.addEventListener('click',async e=>{const t=e.target&&e.target.closest?e
   if(!hit.length)return say2(eh?'Kein Spieler mit dieser E-Mail gefunden. Er muss sich seit Update 86 einmal in der App angemeldet haben.':'Kein Spieler mit dem Namen „'+nm+'“ gefunden. Hat er sich schon in der App registriert?');if(hit.length>1)return say2('Es gibt '+hit.length+' Spieler mit diesem Namen – bitte den Tester um einen eindeutigen Namen.');
   const u=hit[0].id,g=Object.assign({},PGFA);g[u]=Object.assign({n:(hit[0].data()||{}).name||nm},sel);prSave(g,'⭐ Premium an '+g[u].n+' verschenkt!')}catch(err){say2('Spielersuche fehlgeschlagen – bist du angemeldet?')}},true);
 /* ===== Ersteller: Items geben ===== */
-const GVK=()=>[...KLK(),['klc','💎 Kristalllichtschatztruhe'],['_j','💠 Juwelen (Test · kontoweit)']];
+const GVK=()=>{const o=[...KLK(),['klc','💎 Kristalllichtschatztruhe'],['_j','💠 Juwelen (Test · kontoweit)']];try{gvExt(o)}catch(e){}return o.filter(q=>!GVOLD.includes(q[0]))};
 function gvOpt(){if(!p)return '';const K=GVK(),S="padding:5px;border-radius:6px;border:1px solid #8a7a5a;background:#1a140c;color:#fff;font:inherit",R3=(l,h)=>`<div style='display:flex;align-items:center;justify-content:space-between;gap:8px;margin:5px 0'><small>${l}</small>${h}</div>`;
  return `<div class='orw' style='display:block;border:1px solid #7dff7d66;border-radius:8px;padding:6px;margin-top:6px'><div class='ol'>🎁 <b>Items geben</b> <small style='color:#7dff7d'>(nur für dich als Ersteller sichtbar)</small><br><small>Gilt für den aktuellen Charakter.</small></div>
  <b style='font-size:12px'>Material & Verbrauchsgüter</b>${R3('Was',`<select id='gv_k' style='${S};max-width:62%'>${K.map(([k,l])=>`<option value='${k}'>${l}</option>`).join('')}</select>`)}${R3('Anzahl',`<input id='gv_n' type='number' inputmode='numeric' min='1' value='1' style='${S};width:110px'>`)}<div class='ogq'><button data-gv='res'>➕ Geben</button><button data-gv='resm'>➖ Abziehen</button></div>
@@ -10002,4 +10002,12 @@ function gwDraw(g,u,T){const k=u.cd||0,sp=Math.min(1,Math.hypot(u.vx||0,u.vy||0)
  g.fillStyle='#1a2a44';g.beginPath();g.arc(26,-14.4,1,0,7);g.fill();
  g.save();g.globalCompositeOperation='lighter';g.fillStyle='rgba(120,240,255,.9)';g.beginPath();g.ellipse(19.2,-17.2,1.6,.8,-.3,0,7);g.fill();const eg=g.createRadialGradient(19.2,-17.2,0,19.2,-17.2,5);eg.addColorStop(0,'rgba(140,240,255,.6)');eg.addColorStop(1,'rgba(140,240,255,0)');g.fillStyle=eg;g.beginPath();g.arc(19.2,-17.2,5,0,7);g.fill();g.restore();
  g.restore()}
+
+/* ===== Ersteller-Werkzeug: alle Items automatisch im „Items geben“-Menü ===== */
+/* Neue Stapel-Items aus Auktionshaus-Liste (AHMAT) und Mythen-/Event-Items (MYI) erscheinen automatisch; alte Dungeonschlüssel nicht mehr */
+const GVOLD=['dk','wk','kb','ek'];
+function gvExt(o){const h=new Set(o.map(q=>q[0])),A=(k,l)=>{if(!h.has(k)&&!GVOLD.includes(k)){h.add(k);o.splice(o.length-1,0,[k,l])}};
+ try{for(const k in AHMAT)A(k,AHMAT[k][1]+' '+AHMAT[k][0])}catch(e){}
+ try{for(const k in MYI)A(k,MYI[k].e+' '+MYI[k].n)}catch(e){}
+ A('tm','🗼 Turmmarken');A('gf','🧵 Goldfaden')}
 </script></body></html>
