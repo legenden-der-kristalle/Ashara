@@ -9720,7 +9720,7 @@ function NF(v){v=+v||0;return (Math.round(v*100)/100).toLocaleString('de-DE',{ma
 const KRES=.5;
 hit=(o=>function(e,d,cr){if(cr===undefined&&p&&!SSB&&!sfB){cr=R()<CRc();if(cr)d*=1+(CDm()-1)*KRES}return o(e,d,cr)})(hit);
 
-/* 💖 Mythenherz 2% + unsichtbarer Pechschutz · 💞 Wandelherz · 💝 Herzglut */
+/* 💖 Mythenherz 2% · 💞 Wandelherz · 💝 Herzglut */
 const MHZ2=.02,MHPT=20,HZP=.02;
 function mhRoll(){p.mhp=(p.mhp|0)+1;if(R()<MHZ2||p.mhp>=MHPT){p.mhp=0;return 1}return 0}
 Object.assign(MYI,{mhw:{n:'Wandelherz',e:'💞',c:'#ff8ad8'},mhg:{n:'Herzglut',e:'💝',c:'#ff6a9a'}});
@@ -12356,7 +12356,7 @@ jcBox=(o=>function(h){try{
 jcOpt=(o=>function(){return o().replace(`<button data-jcd='s'>Zurücksetzen & Prüfung starten</button>`,`<button data-jcd='s'>Zurücksetzen & Prüfung starten</button><button data-jcu='1'>⚜️ Aufstiegsschlag sofort</button>`)})(jcOpt);
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-jcu]');if(!b||!KLA||!p)return;p.jcUt=0;say('⚜️ Aufstiegsschlag ist bereit.','#7fc8ff')});
 
-/* ===== Update 230 (Teil 4): Ergebnisfenster unter dem benutzten Gegenstand · Kosmetik in fester Reihenfolge · Pechschutz Weltboss-Flügel ===== */
+/* ===== Update 230 (Teil 4): Ergebnisfenster unter dem benutzten Gegenstand · Kosmetik in fester Reihenfolge · Weltboss-Flügel ===== */
 /* --- Ergebnisfenster (Glückstruhe, Veredelung, Wandeljuwel, Kristalllicht, Mythentruhe) direkt unter dem genutzten Gegenstand --- */
 let RSBO=null;
 spc=(o=>function(){const r=o();try{if(typeof r!='string'||HZS||BWS||MKS||MHS||WJS||VKS)return r;const d=document.createElement('div');d.innerHTML=r;
@@ -12396,7 +12396,7 @@ kfSort=function(L,t){return L.slice().sort((a,b)=>kRank(a)-kRank(b))};
 /* Fundort-Text für die Aufstiegs-Kosmetik */
 kCsm=(o=>function(X5){let h=o(X5);try{h=h.split(`<b>${KSRN.jc}</b> · seltener Drop beim Abschluss`).join(`<b>${KSRN.jc}</b> · Belohnung beim Klassenwechsel (ab Prestige 10)`)}catch(e){}return h})(kCsm);
 
-/* --- 🍀 Unsichtbarer Pechschutz für Weltboss-Flügel: spätestens nach 75 Weltboss-Siegen ohne Flügel kommt einer --- */
+/* --- Weltboss-Flügel: Zusatzregel (WBPS) --- */
 const WBPS=75;
 kosDrop=(o=>function(src){const m=typeof src=='string'&&/^wb\d+$/.test(src);if(!m||!p)return o(src);const id=src,K=KOS[id];if(!K||kOwn(id)){o(src);return}
  const was=kOwn(id);o(src);if(kOwn(id)&&!was){p.wbps=0;return}
@@ -12831,7 +12831,7 @@ myAct=(o=>function(a,i,b){if(a=='gpt'){GPT=i|0;return 0}if(a=='gp+'||a=='gp-'){c
 /* ---- 08_wba.js ---- */
 /* ===== 🐲 Weltbossarena – „Arena der Weltenbezwinger“ (ab Prestige 10) =====
    6 Weltbosse nacheinander, jeder hält mindestens 1 Minute stand · dazwischen Phasen mit Gefolge oder Weltenkristallen
-   gewohnte Dungeon-Skalierung (für die Ranglistenzeiten) · Weltboss-Flügel können fallen – OHNE den unsichtbaren Pechschutz */
+   gewohnte Dungeon-Skalierung (für die Ranglistenzeiten) · Weltboss-Flügel können fallen (ohne WBPS) */
 const WBAPR=10,WBAV=15,WBAMIN=60,WBAL=['Orkhäuptling','Eisdrachenkönig','Sturmkönig Tharok','Grottenkönig Morgrath','Jadekaiser Long','Himmelsfürst Seraphon'];
 const WBAQ={'Orkhäuptling':['„Die Arena gehört MIR! Komm her und blute!“',['Schädelspalter!','Kriegsschrei!','Horde des Häuptlings!'],'fire','ember','#ff6a3a','255,120,60'],
  'Eisdrachenkönig':['„Vor tausend Wintern habe ich Könige gefroren. Heute einen Helden.“',['Frostatem!','Eiszapfenregen!','Gletscherbrut!'],'frost','ice','#9ae8ff','150,230,255'],
@@ -12853,7 +12853,7 @@ adFloor=(o=>function(i){try{if(DG&&DG.v==WBAV){const A=AD[WBAV],q=WBAQ[WBAL[i]];
 adBoss=(o=>function(i){const r=o(i);try{if(DG&&DG.v==WBAV){const b=E.find(e=>e.adb==i+1);if(b){const m=Math.max(b.mx,Math.round(dgDps()*WBAMIN*1.08*AD[WBAV].hm));b.hp=b.mx=m;b.wbt=0;b.n=WBAL[i];b.wba=1}}}catch(e){}return r})(adBoss);
 /* Update 258: Weltenschild entfernt – siehe Bannritual */
 
-/* Beute der Weltbosse: wie im Dungeon + eigene Flügel (ohne Pechschutz) + Mythenstein-Chance */
+/* Beute der Weltbosse: wie im Dungeon + eigene Flügel (ohne WBPS) + Mythenstein-Chance */
 function wbaWing(n){const i=BOSS.findIndex(q=>q.n==n);if(i<0)return;const sv=p.wbps|0;p.wbps=-1e9;try{kosDrop('wb'+i)}finally{p.wbps=sv}}
 adDrops=(o=>function(e,dr,du){o(e,dr,du);try{if(DG&&DG.v==WBAV&&e.adb){acA('wbak');wbaWing(e.n);if((p.pl|0)>=MYPR&&R()<.25){D.push({x:e.x-24,y:e.y+22,v:0,l:900,my:'mys'});say('🔮 Ein Mythenstein ist zu Boden gefallen!','#c89aff')}if(R()<.5)D.push({x:e.x+20,y:e.y+18,v:0,l:900,dsg:1})}}catch(x){}})(adDrops);
 function wbaChest(){const G=DG;G.co=1;SHK=7;const t=G.tc||G.t,o={x:DCH.x,y:DCH.y,k:'s'},d0=D.length,P=q=>D.push(Object.assign({x:o.x,y:o.y,v:0,l:900},q)),fast=t<=AD[WBAV].ziel;
@@ -13237,7 +13237,7 @@ ICP.gpstone=g=>{try{icGlow(g,32,32,30,'rgba(255,210,122,.55)');g.beginPath();g.m
  g.strokeStyle='rgba(255,246,214,.95)';g.lineWidth=1.6;for(let i=0;i<3;i++){g.rotate(2.094);g.beginPath();g.arc(0,0,4+i*3.2,0,3.3);g.stroke()}g.restore();
  g.fillStyle='rgba(255,255,255,.75)';g.beginPath();g.moveTo(19,19);g.lineTo(29,12);g.lineTo(25,21);g.closePath();g.fill()}catch(e){}};
 
-/* --- Drop: ⭐ Mythischer Champion im Mythenportal ab Stufe 750 – 4% + unsichtbarer Pechschutz (spätestens beim 15. Champion; Update 256, vorher 2%/20) --- */
+/* --- Drop: ⭐ Mythischer Champion im Mythenportal ab Stufe 750 – 4% (Update 256, vorher 2%) --- */
 hzDrop=(o=>function(e,P){o(e,P);try{if(MY&&!MY.gp&&(MY.st|0)>=GPSST&&gpsL().length<GPSMX){p.gpsp=(p.gpsp|0)+1;if(R()<GPSCH||p.gpsp>=GPSPT){p.gpsp=0;const s=gpsGive(1);if(s){SHK=Math.max(SHK,14);FX.push({k:'r',x:e.x,y:e.y,r:180,l:1.2,m:1.2,c:'#ffd27a'});burst(e.x,e.y-30,110,'#ffd27a',340,130,3.8,1.6);
  try{bcLog('gpstone','Großer Portalstein','#ffd27a','gps|',1,9)}catch(x){}say('🌌 ULTRASELTEN! Der Champion hinterlässt einen Großen Portalstein! Du findest ihn unter 🌀 Teleport → Portal → 🌌 Großes.','#ffd27a');save()}}}}catch(x){}})(hzDrop);
 
